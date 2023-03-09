@@ -103,21 +103,28 @@ namespace MRGFE.Controllers
         [HttpPost, Route("api/campofacturama")]
         public dynamic PostCampoFacturama([FromBody] CampoFacturama campoFacturama)
         {
-            SqlCommand command = new SqlCommand("procMRGFECamposFacturamaCrear", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@CAMPOSFAID", SqlDbType.VarChar).Value = campoFacturama.CamposFaId;
-            command.Parameters.AddWithValue("@CAMPOSFACAMPO", SqlDbType.VarChar).Value = campoFacturama.CamposFaCampo;
-            command.Parameters.AddWithValue("@CAMPOSFAETIQUETA", SqlDbType.VarChar).Value = campoFacturama.CamposFaEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSFATIPODATO", SqlDbType.VarChar).Value = campoFacturama.CamposFaTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSFAARREGLO1", SqlDbType.Bit).Value = campoFacturama.CamposFaArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSFAVERSION", SqlDbType.VarChar).Value = campoFacturama.CamposFaVersion;
-            command.Parameters.AddWithValue("@CAMPOSFAOBLIGA1", SqlDbType.Bit).Value = campoFacturama.CamposFaObliga1;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFECamposFacturamaCrear", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CAMPOSFAID", SqlDbType.VarChar).Value = campoFacturama.CamposFaId;
+                command.Parameters.AddWithValue("@CAMPOSFACAMPO", SqlDbType.VarChar).Value = campoFacturama.CamposFaCampo;
+                command.Parameters.AddWithValue("@CAMPOSFAETIQUETA", SqlDbType.VarChar).Value = campoFacturama.CamposFaEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSFATIPODATO", SqlDbType.VarChar).Value = campoFacturama.CamposFaTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSFAARREGLO1", SqlDbType.Bit).Value = campoFacturama.CamposFaArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSFAVERSION", SqlDbType.VarChar).Value = campoFacturama.CamposFaVersion;
+                command.Parameters.AddWithValue("@CAMPOSFAOBLIGA1", SqlDbType.Bit).Value = campoFacturama.CamposFaObliga1;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
-
-            return campoFacturama;
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            
+            return Request.CreateResponse(HttpStatusCode.Created, campoFacturama);
         }
 
         /// <summary>
@@ -128,21 +135,29 @@ namespace MRGFE.Controllers
         [HttpPut, Route("api/campofacturama")]
         public dynamic PutCampoFacturama([FromBody] CampoFacturama campoFacturama)
         {
-            SqlCommand command = new SqlCommand("procMRGFECamposFacturamaActualizar", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@CAMPOSFAID", SqlDbType.VarChar).Value = campoFacturama.CamposFaId;
-            command.Parameters.AddWithValue("@CAMPOSFACAMPO", SqlDbType.VarChar).Value = campoFacturama.CamposFaCampo;
-            command.Parameters.AddWithValue("@CAMPOSFAETIQUETA", SqlDbType.VarChar).Value = campoFacturama.CamposFaEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSFATIPODATO", SqlDbType.VarChar).Value = campoFacturama.CamposFaTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSFAARREGLO1", SqlDbType.Bit).Value = campoFacturama.CamposFaArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSFAVERSION", SqlDbType.VarChar).Value = campoFacturama.CamposFaVersion;
-            command.Parameters.AddWithValue("@CAMPOSFAOBLIGA1", SqlDbType.Bit).Value = campoFacturama.CamposFaObliga1;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFECamposFacturamaActualizar", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CAMPOSFAID", SqlDbType.VarChar).Value = campoFacturama.CamposFaId;
+                command.Parameters.AddWithValue("@CAMPOSFACAMPO", SqlDbType.VarChar).Value = campoFacturama.CamposFaCampo;
+                command.Parameters.AddWithValue("@CAMPOSFAETIQUETA", SqlDbType.VarChar).Value = campoFacturama.CamposFaEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSFATIPODATO", SqlDbType.VarChar).Value = campoFacturama.CamposFaTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSFAARREGLO1", SqlDbType.Bit).Value = campoFacturama.CamposFaArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSFAVERSION", SqlDbType.VarChar).Value = campoFacturama.CamposFaVersion;
+                command.Parameters.AddWithValue("@CAMPOSFAOBLIGA1", SqlDbType.Bit).Value = campoFacturama.CamposFaObliga1;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            
 
-            return campoFacturama;
+            return Request.CreateResponse(HttpStatusCode.OK, campoFacturama);
         }
 
         /// <summary>

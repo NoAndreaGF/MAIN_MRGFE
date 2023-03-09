@@ -102,21 +102,28 @@ namespace MRGFE.Controllers
         [HttpPost, Route("api/campomirage")]
         public dynamic PostCampoMirage([FromBody] CampoMirage campoMirage)
         {
-            SqlCommand command = new SqlCommand("procMRGFECamposMirageCrear", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
-            command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
-            command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
-            command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFECamposMirageCrear", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
+                command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
+                command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
+                command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
 
-            return campoMirage;
+            return Request.CreateResponse(HttpStatusCode.Created, campoMirage);
         }
 
         /// <summary>
@@ -127,21 +134,28 @@ namespace MRGFE.Controllers
         [HttpPut, Route("api/campomirage")]
         public dynamic PutCampoMirage([FromBody] CampoMirage campoMirage)
         {
-            SqlCommand command = new SqlCommand("procMRGFECamposMirageActualizar", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
-            command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
-            command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
-            command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFECamposMirageActualizar", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
+                command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
+                command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
+                command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
 
-            return campoMirage;
+            return Request.CreateResponse(HttpStatusCode.OK, campoMirage);
         }
 
         /// <summary>
