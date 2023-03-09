@@ -117,27 +117,32 @@ namespace MRGFE.Controllers
         [HttpPost, Route("api/emisor")]
         public dynamic PostEmisor([FromBody] Emisor emisor)
         {
-            SqlCommand command = new SqlCommand("procMRGFEEmisorCrear", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@EMISORRFC", SqlDbType.VarChar).Value = emisor.EmisorRfc;
-            command.Parameters.AddWithValue("@EMISORRAZSOCIAL", SqlDbType.VarChar).Value = emisor.EmisorRazSocial;
-            command.Parameters.AddWithValue("@EMISORESTATUS", SqlDbType.VarChar).Value = emisor.EmisorEstatus;
-            command.Parameters.AddWithValue("@EMISORREGFISCAL", SqlDbType.VarChar).Value = emisor.EmisorRegFiscal;
-            command.Parameters.AddWithValue("@EMISORCORREO", SqlDbType.VarChar).Value = emisor.EmisorCorreo;
-            command.Parameters.AddWithValue("@EMISORCODPOSTAL", SqlDbType.VarChar).Value = emisor.EmisorCodPostal;
-            command.Parameters.AddWithValue("@EMISORMUNICIPIO", SqlDbType.VarChar).Value = emisor.EmisorMunicipio;
-            command.Parameters.AddWithValue("@EMISORESTADO", SqlDbType.VarChar).Value = emisor.EmisorEstado;
-            command.Parameters.AddWithValue("@EMISORCOLONIA", SqlDbType.VarChar).Value = emisor.EmisorColonia;
-            command.Parameters.AddWithValue("@EMISORCALLE", SqlDbType.VarChar).Value = emisor.EmisorCalle;
-            command.Parameters.AddWithValue("@EMISORNOEXTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoExterior;
-            command.Parameters.AddWithValue("@EMISORNOINTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoInterior;
-            command.Parameters.AddWithValue("@EMISORFOLIOINIC", SqlDbType.VarChar).Value = emisor.EmisorFolioInic;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFEEmisorCrear", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@EMISORRFC", SqlDbType.VarChar).Value = emisor.EmisorRfc;
+                command.Parameters.AddWithValue("@EMISORRAZSOCIAL", SqlDbType.VarChar).Value = emisor.EmisorRazSocial;
+                command.Parameters.AddWithValue("@EMISORESTATUS", SqlDbType.VarChar).Value = emisor.EmisorEstatus;
+                command.Parameters.AddWithValue("@EMISORREGFISCAL", SqlDbType.VarChar).Value = emisor.EmisorRegFiscal;
+                command.Parameters.AddWithValue("@EMISORCORREO", SqlDbType.VarChar).Value = emisor.EmisorCorreo;
+                command.Parameters.AddWithValue("@EMISORCODPOSTAL", SqlDbType.VarChar).Value = emisor.EmisorCodPostal;
+                command.Parameters.AddWithValue("@EMISORMUNICIPIO", SqlDbType.VarChar).Value = emisor.EmisorMunicipio;
+                command.Parameters.AddWithValue("@EMISORESTADO", SqlDbType.VarChar).Value = emisor.EmisorEstado;
+                command.Parameters.AddWithValue("@EMISORCOLONIA", SqlDbType.VarChar).Value = emisor.EmisorColonia;
+                command.Parameters.AddWithValue("@EMISORCALLE", SqlDbType.VarChar).Value = emisor.EmisorCalle;
+                command.Parameters.AddWithValue("@EMISORNOEXTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoExterior;
+                command.Parameters.AddWithValue("@EMISORNOINTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoInterior;
+                command.Parameters.AddWithValue("@EMISORFOLIOINIC", SqlDbType.VarChar).Value = emisor.EmisorFolioInic;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            } else {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
             
-            return emisor;
+            return Request.CreateResponse(HttpStatusCode.Created, emisor);
         }
 
         /// <summary>
@@ -148,27 +153,33 @@ namespace MRGFE.Controllers
         [HttpPut, Route("api/emisor")]
         public dynamic PutEmisor([FromBody] Emisor emisor)
         {
-            SqlCommand command = new SqlCommand("procMRGFEEmisorActualizar", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@EMISORRFC", SqlDbType.VarChar).Value = emisor.EmisorRfc;
-            command.Parameters.AddWithValue("@EMISORRAZSOCIAL", SqlDbType.VarChar).Value = emisor.EmisorRazSocial;
-            command.Parameters.AddWithValue("@EMISORESTATUS", SqlDbType.VarChar).Value = emisor.EmisorEstatus;
-            command.Parameters.AddWithValue("@EMISORREGFISCAL", SqlDbType.VarChar).Value = emisor.EmisorRegFiscal;
-            command.Parameters.AddWithValue("@EMISORCORREO", SqlDbType.VarChar).Value = emisor.EmisorCorreo;
-            command.Parameters.AddWithValue("@EMISORCODPOSTAL", SqlDbType.VarChar).Value = emisor.EmisorCodPostal;
-            command.Parameters.AddWithValue("@EMISORMUNICIPIO", SqlDbType.VarChar).Value = emisor.EmisorMunicipio;
-            command.Parameters.AddWithValue("@EMISORESTADO", SqlDbType.VarChar).Value = emisor.EmisorEstado;
-            command.Parameters.AddWithValue("@EMISORCOLONIA", SqlDbType.VarChar).Value = emisor.EmisorColonia;
-            command.Parameters.AddWithValue("@EMISORCALLE", SqlDbType.VarChar).Value = emisor.EmisorCalle;
-            command.Parameters.AddWithValue("@EMISORNOEXTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoExterior;
-            command.Parameters.AddWithValue("@EMISORNOINTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoInterior;
-            command.Parameters.AddWithValue("@EMISORFOLIOINIC", SqlDbType.VarChar).Value = emisor.EmisorFolioInic;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFEEmisorActualizar", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@EMISORRFC", SqlDbType.VarChar).Value = emisor.EmisorRfc;
+                command.Parameters.AddWithValue("@EMISORRAZSOCIAL", SqlDbType.VarChar).Value = emisor.EmisorRazSocial;
+                command.Parameters.AddWithValue("@EMISORESTATUS", SqlDbType.VarChar).Value = emisor.EmisorEstatus;
+                command.Parameters.AddWithValue("@EMISORREGFISCAL", SqlDbType.VarChar).Value = emisor.EmisorRegFiscal;
+                command.Parameters.AddWithValue("@EMISORCORREO", SqlDbType.VarChar).Value = emisor.EmisorCorreo;
+                command.Parameters.AddWithValue("@EMISORCODPOSTAL", SqlDbType.VarChar).Value = emisor.EmisorCodPostal;
+                command.Parameters.AddWithValue("@EMISORMUNICIPIO", SqlDbType.VarChar).Value = emisor.EmisorMunicipio;
+                command.Parameters.AddWithValue("@EMISORESTADO", SqlDbType.VarChar).Value = emisor.EmisorEstado;
+                command.Parameters.AddWithValue("@EMISORCOLONIA", SqlDbType.VarChar).Value = emisor.EmisorColonia;
+                command.Parameters.AddWithValue("@EMISORCALLE", SqlDbType.VarChar).Value = emisor.EmisorCalle;
+                command.Parameters.AddWithValue("@EMISORNOEXTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoExterior;
+                command.Parameters.AddWithValue("@EMISORNOINTERIOR", SqlDbType.VarChar).Value = emisor.EmisorNoInterior;
+                command.Parameters.AddWithValue("@EMISORFOLIOINIC", SqlDbType.VarChar).Value = emisor.EmisorFolioInic;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            } else {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            
 
-            return emisor;
+            return Request.CreateResponse(HttpStatusCode.OK, emisor);
         }
 
         /// <summary>

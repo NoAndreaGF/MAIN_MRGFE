@@ -13,6 +13,7 @@ using Facturama.Services;
 using Facturama;
 using Facturama.Models.Complements.Payroll;
 using Facturama.Models.Response;
+using System.Web.UI;
 
 namespace MRGFE.Controllers
 {
@@ -242,49 +243,68 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <param name="factura">Json representativo de un Cfdi a registrar</param>
         /// <returns>Datos del Cfdi registrado</returns>
+        [HttpPost, Route("api/cfdi")]
         public dynamic Post([FromBody] CfdiMulti factura)
         {
             try
             {
-                var cfdi = facturama.Cfdis.Create(factura);
+                var acfdi = facturama.Cfdis.Create(factura);
 
-                var pdf = facturama.Cfdis.GetFile(cfdi.Id, CfdiLiteService.FileFormat.Pdf);
-                var xml = facturama.Cfdis.GetFile(cfdi.Id, CfdiLiteService.FileFormat.Xml);
+                var cfdi = new CFDI
+                {
+                    CfdiId = acfdi.Id,
+                    CfdiFolioFiscal = acfdi.Complement.TaxStamp.Uuid,
+                    CfdiSerie = acfdi.Serie,
+                    CfdiRSocEmisor = acfdi.Issuer.TaxName,
+                    CfdiRfcEmisor = acfdi.Issuer.Rfc,
+                    CfdiRSocReceptor = acfdi.Receiver.Name,
+                    CfdiRfcReceptor = acfdi.Receiver.Rfc,
+                    CfdiTotal = Decimal.ToDouble(acfdi.Total)
+                };
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "procMRGFECFDIsCrear";
-                cmd.Connection = conn;
+                this.Validate(cfdi);
+                if (ModelState.IsValid)
+                {
+                    var pdf = facturama.Cfdis.GetFile(cfdi.CfdiId, CfdiLiteService.FileFormat.Pdf);
+                    var xml = facturama.Cfdis.GetFile(cfdi.CfdiId, CfdiLiteService.FileFormat.Xml);
 
-                cmd.Parameters.AddWithValue("@CFDIID", SqlDbType.VarChar).Value = cfdi.Id;
-                cmd.Parameters.AddWithValue("@CFDIFOLIOFISCAL", SqlDbType.VarChar).Value = cfdi.Complement.TaxStamp.Uuid;
-                cmd.Parameters.AddWithValue("@CFDISERIE", SqlDbType.VarChar).Value = cfdi.Serie;
-                cmd.Parameters.AddWithValue("@CFDIRSOCEMISOR", SqlDbType.VarChar).Value = cfdi.Issuer.TaxName;
-                cmd.Parameters.AddWithValue("@CFDIRFCEMISOR", SqlDbType.VarChar).Value = cfdi.Issuer.Rfc;
-                cmd.Parameters.AddWithValue("@CFDIRSOCRECEPTOR", SqlDbType.VarChar).Value = cfdi.Receiver.Name;
-                cmd.Parameters.AddWithValue("@CFDIRFCRECEPTOR", SqlDbType.VarChar).Value = cfdi.Receiver.Rfc;
-                cmd.Parameters.AddWithValue("@CFDIFECHA", SqlDbType.DateTime).Value = cfdi.Date;
-                cmd.Parameters.AddWithValue("@CFDITOTAL", SqlDbType.Money).Value = cfdi.Total;
-                cmd.Parameters.AddWithValue("@CFDIEMAIL", SqlDbType.VarChar).Value = cfdi.Issuer.Email;
-                cmd.Parameters.AddWithValue("@CFDIESACTIVO", SqlDbType.VarChar).Value = cfdi.Status;
-                cmd.Parameters.AddWithValue("@CFDIEMAILENVIADO", SqlDbType.Bit).Value = cfdi.SendMail;
-                cmd.Parameters.AddWithValue("@CFDIPDF", SqlDbType.VarBinary).Value = Convert.FromBase64String(pdf.Content);
-                cmd.Parameters.AddWithValue("@CFDIXML", SqlDbType.VarBinary).Value = Convert.FromBase64String(xml.Content);
-                cmd.Parameters.AddWithValue("@CFDIPROCESADO1PDF", SqlDbType.Bit).Value = 1;
-                cmd.Parameters.AddWithValue("@CFDIPROCESADO1XML", SqlDbType.Bit).Value = 1;
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "procMRGFECFDIsCrear";
+                    cmd.Connection = conn;
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
-                return cfdi;
+                    cmd.Parameters.AddWithValue("@CFDIID", SqlDbType.VarChar).Value = cfdi.CfdiId;
+                    cmd.Parameters.AddWithValue("@CFDIFOLIOFISCAL", SqlDbType.VarChar).Value = cfdi.CfdiFolioFiscal;
+                    cmd.Parameters.AddWithValue("@CFDISERIE", SqlDbType.VarChar).Value = cfdi.CfdiSerie;
+                    cmd.Parameters.AddWithValue("@CFDIRSOCEMISOR", SqlDbType.VarChar).Value = cfdi.CfdiRSocEmisor;
+                    cmd.Parameters.AddWithValue("@CFDIRFCEMISOR", SqlDbType.VarChar).Value = cfdi.CfdiRfcEmisor;
+                    cmd.Parameters.AddWithValue("@CFDIRSOCRECEPTOR", SqlDbType.VarChar).Value = cfdi.CfdiRSocReceptor;
+                    cmd.Parameters.AddWithValue("@CFDIRFCRECEPTOR", SqlDbType.VarChar).Value = cfdi.CfdiRfcReceptor;
+                    cmd.Parameters.AddWithValue("@CFDIFECHA", SqlDbType.DateTime).Value = acfdi.Date;
+                    cmd.Parameters.AddWithValue("@CFDITOTAL", SqlDbType.Money).Value = cfdi.CfdiTotal;
+                    cmd.Parameters.AddWithValue("@CFDIEMAIL", SqlDbType.VarChar).Value = acfdi.Issuer.Email;
+                    cmd.Parameters.AddWithValue("@CFDIESACTIVO", SqlDbType.VarChar).Value = acfdi.Status;
+                    cmd.Parameters.AddWithValue("@CFDIEMAILENVIADO", SqlDbType.Bit).Value = acfdi.SendMail;
+                    cmd.Parameters.AddWithValue("@CFDIPDF", SqlDbType.VarBinary).Value = Convert.FromBase64String(pdf.Content);
+                    cmd.Parameters.AddWithValue("@CFDIXML", SqlDbType.VarBinary).Value = Convert.FromBase64String(xml.Content);
+                    cmd.Parameters.AddWithValue("@CFDIPROCESADO1PDF", SqlDbType.Bit).Value = 1;
+                    cmd.Parameters.AddWithValue("@CFDIPROCESADO1XML", SqlDbType.Bit).Value = 1;
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return Request.CreateResponse(HttpStatusCode.OK, acfdi);
+                } else {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
             }
             catch (FacturamaException ex)
             {
-                return ($"Error: ", ex.Message);
+                return ($"Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return ($"Error inesperado: ", ex.Message);
+                return ($"Error inesperado: {ex.Message}");
             }
         }
 
