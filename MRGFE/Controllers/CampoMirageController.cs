@@ -14,7 +14,7 @@ namespace MRGFE.Controllers
     /// <summary>
     /// Controlador para Campo Mirage
     /// </summary>
-    public class CampoMirageController : ApiController
+    public class IV_CampoMirageController : ApiController
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
 

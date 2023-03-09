@@ -481,146 +481,146 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="T:MRGFE.Controllers.CampoFacturamaController">
+        <member name="T:MRGFE.Controllers.III_CampoFacturamaController">
             <summary>
             Controlador para Campo Facturama
             </summary>
         </member>
-        <member name="M:MRGFE.Controllers.CampoFacturamaController.GetCamposFacturama">
+        <member name="M:MRGFE.Controllers.III_CampoFacturamaController.GetCamposFacturama">
             <summary>
             Esta función obtiene los Campos de Facturama
             </summary>
             <returns>Lista de los Campos de Facturama</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoFacturamaController.GetPorId(System.String)">
+        <member name="M:MRGFE.Controllers.III_CampoFacturamaController.GetPorId(System.String)">
             <summary>
             Esta función obtiene un Campo de Facturama por Id
             </summary>
             <param name="id">Id del Campo de Facturama a recuperar</param>
             <returns>Datos del Campo Facturama recuperado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoFacturamaController.PostCampoFacturama(MRGFE.Models.CampoFacturama)">
+        <member name="M:MRGFE.Controllers.III_CampoFacturamaController.PostCampoFacturama(MRGFE.Models.CampoFacturama)">
             <summary>
             Esta función recibe los datos del Campo Facturama y los guarda
             </summary>
             <param name="campoFacturama">Json representativo de un Campo Facturama a registrar</param>
             <returns>Datos del Campo Facturama registrado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoFacturamaController.PutCampoFacturama(MRGFE.Models.CampoFacturama)">
+        <member name="M:MRGFE.Controllers.III_CampoFacturamaController.PutCampoFacturama(MRGFE.Models.CampoFacturama)">
             <summary>
             Esta función recibe los datos de Campo Facturama para actualizar el objeto según su Id
             </summary>
             <param name="campoFacturama">Json representativo de un Campo Facturama a actualizar</param>
             <returns>Datos del Camp Facturama actualizado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoFacturamaController.DeleteCampoFacturama(System.String)">
+        <member name="M:MRGFE.Controllers.III_CampoFacturamaController.DeleteCampoFacturama(System.String)">
             <summary>
             Esta función elimina el Campo Facturama correspondiente al Id
             </summary>
             <param name="id">Id del Campo Facturama a eliminar</param>
         </member>
-        <member name="T:MRGFE.Controllers.CampoMirageController">
+        <member name="T:MRGFE.Controllers.IV_CampoMirageController">
             <summary>
             Controlador para Campo Mirage
             </summary>
         </member>
-        <member name="M:MRGFE.Controllers.CampoMirageController.GetCamposMirage">
+        <member name="M:MRGFE.Controllers.IV_CampoMirageController.GetCamposMirage">
             <summary>
             Esta función obtiene los Campos de Mirage
             </summary>
             <returns>Lista de los Campos de Mirage</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoMirageController.GetPorId(System.String)">
+        <member name="M:MRGFE.Controllers.IV_CampoMirageController.GetPorId(System.String)">
             <summary>
             Esta función obtiene un Campo de Mirage por Id
             </summary>
             <param name="id">Id del Campo de Mirage a recuperar</param>
             <returns>Datos del Campo Mirage recuperado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoMirageController.PostCampoMirage(MRGFE.Models.CampoMirage)">
+        <member name="M:MRGFE.Controllers.IV_CampoMirageController.PostCampoMirage(MRGFE.Models.CampoMirage)">
             <summary>
             Esta función recibe los datos del Campo Mirage y los guarda
             </summary>
             <param name="campoMirage">Json representativo de un Campo Mirage a registrar</param>
             <returns>Datos del Campo Mirage registrado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoMirageController.PutCampoMirage(MRGFE.Models.CampoMirage)">
+        <member name="M:MRGFE.Controllers.IV_CampoMirageController.PutCampoMirage(MRGFE.Models.CampoMirage)">
             <summary>
             Esta función recibe los datos de Campo Mirage para actualizar el objeto según su Id
             </summary>
             <param name="campoMirage">Json representativo de un Campo Mirage a actualizar</param>
             <returns>Datos del Camp Mirage actualizado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CampoMirageController.DeleteCampoMirage(System.String)">
+        <member name="M:MRGFE.Controllers.IV_CampoMirageController.DeleteCampoMirage(System.String)">
             <summary>
             Esta función elimina el Campo Mirage correspondiente al Id
             </summary>
             <param name="id">Id del Campo Mirage a eliminar</param>
         </member>
-        <member name="T:MRGFE.Controllers.EmisorController">
+        <member name="T:MRGFE.Controllers.II_EmisorController">
             <summary>
             Controlador para Emisor
             </summary>
         </member>
-        <member name="M:MRGFE.Controllers.EmisorController.GetEmisores">
+        <member name="M:MRGFE.Controllers.II_EmisorController.GetEmisores">
             <summary>
             Esta función obtiene los Emisores
             </summary>
             <returns>Lista de los Emisores</returns>
         </member>
-        <member name="M:MRGFE.Controllers.EmisorController.GetPorRfc(System.String)">
+        <member name="M:MRGFE.Controllers.II_EmisorController.GetPorRfc(System.String)">
             <summary>
             Esta función obtiene un Emisor por Rfc
             </summary>
             <param name="rfc">RFC del Emisor a recuperar</param>
             <returns>Datos del Emisor recuperado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.EmisorController.PostEmisor(MRGFE.Models.Emisor)">
+        <member name="M:MRGFE.Controllers.II_EmisorController.PostEmisor(MRGFE.Models.Emisor)">
             <summary>
             Esta función recibe los datos de Emisor y los guarda
             </summary>
             <param name="emisor">Json representativo de un Emisor a registrar</param>
             <returns>Datos del Emisor registrado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.EmisorController.PutEmisor(MRGFE.Models.Emisor)">
+        <member name="M:MRGFE.Controllers.II_EmisorController.PutEmisor(MRGFE.Models.Emisor)">
             <summary>
             Esta función recibe los datos de Emisor para actualizar el objeto según su RFC
             </summary>
             <param name="emisor">Json representativo de un Emisor a actualizar</param>
             <returns>Datos del Emisor actualizado</returns>
         </member>
-        <member name="M:MRGFE.Controllers.EmisorController.DeleteEmisor(System.String)">
+        <member name="M:MRGFE.Controllers.II_EmisorController.DeleteEmisor(System.String)">
             <summary>
             Esta función elimina el Emisor correspondinete al RFC
             </summary>
             <param name="rfc">RFC del Emisor a eliminar</param>
         </member>
-        <member name="T:MRGFE.Controllers.CfdiController">
+        <member name="T:MRGFE.Controllers.I_CfdiController">
             <summary>
             Controlador para CFDI
             </summary>
         </member>
-        <member name="M:MRGFE.Controllers.CfdiController.GetFacturas">
+        <member name="M:MRGFE.Controllers.I_CfdiController.GetFacturas">
             <summary>
             Esta función obtiene todos los Cfdis
             </summary>
             <returns>Lista de Cfdis</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CfdiController.GetPorId(System.String)">
+        <member name="M:MRGFE.Controllers.I_CfdiController.GetPorId(System.String)">
             <summary>
             Esta función obtiene un Cfdi por Id
             </summary>
             <param name="id">Id del Cfdi</param>
             <returns>Cfdi que coincide con el Id</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CfdiController.GetPorFolio(System.String)">
+        <member name="M:MRGFE.Controllers.I_CfdiController.GetPorFolio(System.String)">
             <summary>
             Esta función obtiene un Cfdi por folio fiscal
             </summary>
             <param name="foliofiscal">Folio fiscal del Cfdi</param>
             <returns>Cfdi que coincide con el folio fiscal</returns>
         </member>
-        <member name="M:MRGFE.Controllers.CfdiController.GetPorRfc(System.String,System.String,System.String,System.String)">
+        <member name="M:MRGFE.Controllers.I_CfdiController.GetPorRfc(System.String,System.String,System.String,System.String)">
             <summary>
             Esta función obtiene los Cfdi por filtros de fecha inicio y fecha final y/o RFC de emisor y/o RFC de receptor
             </summary>
@@ -630,7 +630,7 @@
             <param name="fechafin">Fecha a tomar de fin para la creación del Cfdi</param>
             <returns></returns>
         </member>
-        <member name="M:MRGFE.Controllers.CfdiController.Post(Facturama.Models.Request.CfdiMulti)">
+        <member name="M:MRGFE.Controllers.I_CfdiController.PostCfdi(Facturama.Models.Request.CfdiMulti)">
             <summary>
             Esta función recibe el Cfdi y lo guarda.
             </summary>

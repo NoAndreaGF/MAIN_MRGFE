@@ -1,5 +1,7 @@
 ﻿using Facturama;
+using Microsoft.Ajax.Utilities;
 using MRGFE.Models;
+using RestSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,7 +17,7 @@ namespace MRGFE.Controllers
     /// <summary>
     /// Controlador para Emisor
     /// </summary>
-    public class EmisorController : ApiController
+    public class II_EmisorController : ApiController
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
 
@@ -178,7 +180,6 @@ namespace MRGFE.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
             }
             
-
             return Request.CreateResponse(HttpStatusCode.OK, emisor);
         }
 
