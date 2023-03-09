@@ -15,7 +15,7 @@ namespace MRGFE.Controllers
     /// <summary>
     /// Controlador para Emisor
     /// </summary>
-    public class EmisorController : ApiController
+    public class II_EmisorController : ApiController
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
 
