@@ -15,7 +15,7 @@ namespace MRGFE.Controllers
     /// <summary>
     /// Controlador para Campo Facturama
     /// </summary>
-    public class III_CampoFacturamaController : ApiController
+    public class CampoFacturamaController : ApiController
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
 

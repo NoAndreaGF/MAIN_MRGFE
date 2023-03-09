@@ -20,7 +20,7 @@ namespace MRGFE.Controllers
     /// <summary>
     /// Controlador para CFDI
     /// </summary>
-    public class I_CfdiController : ApiController
+    public class CfdiController : ApiController
     {
         FacturamaApiMultiemisor facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
@@ -244,7 +244,7 @@ namespace MRGFE.Controllers
         /// <param name="factura">Json representativo de un Cfdi a registrar</param>
         /// <returns>Datos del Cfdi registrado</returns>
         [HttpPost, Route("api/cfdi")]
-        public dynamic PostCfdi([FromBody] CfdiMulti factura)
+        public dynamic Post([FromBody] CfdiMulti factura)
         {
             try
             {
