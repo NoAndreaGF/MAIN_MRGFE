@@ -30,7 +30,7 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <returns>Lista de Cfdis</returns>
         [HttpGet, Route("api/cfdi")]
-        public List<CFDI> GetFacturas()
+        public HttpResponseMessage GetFacturas()
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -70,12 +70,9 @@ namespace MRGFE.Controllers
             }
             if (lstCfdi.Count > 0)
             {
-                return lstCfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, lstCfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontraron CFDIs registrados.");
         }
 
         /// <summary>
@@ -84,7 +81,7 @@ namespace MRGFE.Controllers
         /// <param name="id">Id del Cfdi</param>
         /// <returns>Cfdi que coincide con el Id</returns>
         [HttpGet, Route("api/cfdi/{id}")]
-        public dynamic GetPorId(string id)
+        public HttpResponseMessage GetPorId(string id)
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -119,12 +116,9 @@ namespace MRGFE.Controllers
             }
             if (cfdi != null)
             {
-                return cfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, cfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontro el CFDI con el ID especificado.");
         }
 
         /// <summary>
@@ -133,7 +127,7 @@ namespace MRGFE.Controllers
         /// <param name="foliofiscal">Folio fiscal del Cfdi</param>
         /// <returns>Cfdi que coincide con el folio fiscal</returns>
         [HttpGet, Route("api/cfdi/folio={foliofiscal}")]
-        public dynamic GetPorFolio(string foliofiscal)
+        public HttpResponseMessage GetPorFolio(string foliofiscal)
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -168,12 +162,9 @@ namespace MRGFE.Controllers
             }
             if (cfdi != null)
             {
-                return cfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, cfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontro el CFDI con el folio especificado.");
         }
 
         /// <summary>
@@ -185,7 +176,7 @@ namespace MRGFE.Controllers
         /// <param name="fechafin">Fecha a tomar de fin para la creación del Cfdi</param>
         /// <returns></returns>
         [HttpGet, Route("api/cfdi/filtrar")]
-        public List<CFDI> GetPorRfc([FromUri] string fechainicio, [FromUri] string fechafin, 
+        public HttpResponseMessage GetPorRfc([FromUri] string fechainicio, [FromUri] string fechafin, 
             [FromUri] string rfcemisor = "", [FromUri] string rfcreceptor = "")
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
@@ -230,12 +221,9 @@ namespace MRGFE.Controllers
             }
             if (lstCfdi.Count > 0)
             {
-                return lstCfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, lstCfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontraron CFDIs con los parametros especificados");
         }
 
         /// <summary>
@@ -244,7 +232,7 @@ namespace MRGFE.Controllers
         /// <param name="factura">Json representativo de un Cfdi a registrar</param>
         /// <returns>Datos del Cfdi registrado</returns>
         [HttpPost, Route("api/cfdi")]
-        public dynamic PostCfdi([FromBody] CfdiMulti factura)
+        public HttpResponseMessage PostCfdi([FromBody] CfdiMulti factura)
         {
             try
             {
@@ -300,11 +288,11 @@ namespace MRGFE.Controllers
             }
             catch (FacturamaException ex)
             {
-                return ($"Error: {ex.Message}");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, $"Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return ($"Error inesperado: {ex.Message}");
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, $"Error inesperado: {ex.Message}");
             }
         }
 

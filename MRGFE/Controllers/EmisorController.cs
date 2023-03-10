@@ -24,7 +24,7 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <returns>Lista de los Emisores</returns>
         [HttpGet, Route("api/emisor")]
-        public List<Emisor> GetEmisores()
+        public HttpResponseMessage GetEmisores()
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFEEmisorRecuperar", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -58,12 +58,9 @@ namespace MRGFE.Controllers
             }
             if (lstEmisor.Count > 0)
             {
-                return lstEmisor;
+                return Request.CreateResponse(HttpStatusCode.OK, lstEmisor);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No hay registros en este momento.");
         }
 
         /// <summary>
@@ -103,10 +100,7 @@ namespace MRGFE.Controllers
             {
                 return emisor;
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No hay emisor con el RFC especificado.");
         }
 
         /// <summary>
