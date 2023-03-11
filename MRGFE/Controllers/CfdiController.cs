@@ -114,7 +114,7 @@ namespace MRGFE.Controllers
                 cfdi.CfdiFechaProcesadoPdf = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOPDF"]);
                 cfdi.CfdiFechaProcesadoXml = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOXML"]);
             }
-            if (cfdi != null)
+            if (cfdi.CfdiId != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, cfdi);
             }
@@ -160,7 +160,7 @@ namespace MRGFE.Controllers
                 cfdi.CfdiFechaProcesadoPdf = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOPDF"]);
                 cfdi.CfdiFechaProcesadoXml = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOXML"]);
             }
-            if (cfdi != null)
+            if (cfdi.CfdiId != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, cfdi);
             }

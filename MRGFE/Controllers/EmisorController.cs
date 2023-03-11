@@ -96,9 +96,9 @@ namespace MRGFE.Controllers
                 emisor.EmisorNoInterior = dt.Rows[0]["EMISORNOINTERIOR"].ToString();
                 emisor.EmisorFolioInic = dt.Rows[0]["EMISORFOLIOINIC"].ToString();
             }
-            if (emisor != null)
+            if (emisor.EmisorRfc != null)
             {
-                return emisor;
+                return Request.CreateResponse(HttpStatusCode.OK, emisor);
             }
             return Request.CreateResponse(HttpStatusCode.NotFound, "No hay emisor con el RFC especificado.");
         }
@@ -135,7 +135,6 @@ namespace MRGFE.Controllers
             } else {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            
             return Request.CreateResponse(HttpStatusCode.Created, emisor);
         }
 
@@ -171,8 +170,6 @@ namespace MRGFE.Controllers
             } else {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            
-
             return Request.CreateResponse(HttpStatusCode.OK, emisor);
         }
 
