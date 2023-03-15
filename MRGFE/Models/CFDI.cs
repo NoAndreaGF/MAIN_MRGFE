@@ -28,9 +28,22 @@ namespace MRGFE.Models
         /// <summary>
         /// Atributo Serie del CFDI.
         /// </summary>
-        [Required]
-        [StringLength(50)]
+        [StringLength(10)]
         public string CfdiSerie { get; set; }
+
+        /// <summary>
+        /// Atributo Folio del CFDI.
+        /// </summary>
+        [Required]
+        [StringLength(40)]
+        public string CfdiFolio { get; set; }
+
+        /// <summary>
+        /// Atributo Tipo del CFDI.
+        /// </summary>
+        [Required]
+        [StringLength(30)]
+        public string CfdiTipo { get; set; }
 
         /// <summary>
         /// Atributo Razón Social de Emisor del CFDI.

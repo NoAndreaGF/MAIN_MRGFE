@@ -40,6 +40,24 @@ namespace MRGFE.Models
         public string EmisorRegFiscal { get; set; }
 
         /// <summary>
+        /// Atributo ID Externo 1 del Emisor
+        /// </summary>
+        [StringLength(50)]
+        public string EmisorIdExterno1 { get; set; }
+
+        /// <summary>
+        /// Atributo ID Externo 2 del Emisor
+        /// </summary>
+        [StringLength(50)]
+        public string EmisorIdExterno2 { get; set; }
+
+        /// <summary>
+        /// Atributo ID Externo 3 del Emisor
+        /// </summary>
+        [StringLength(50)]
+        public string EmisorIdExterno3 { get; set; }
+
+        /// <summary>
         /// Atributo Correo del Emisor
         /// </summary>
         [Required]
