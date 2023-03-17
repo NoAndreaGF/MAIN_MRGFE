@@ -34,7 +34,7 @@ namespace MRGFE.Controllers
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 1);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 2);
 
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -47,6 +47,8 @@ namespace MRGFE.Controllers
                     cfdi.CfdiId = dt.Rows[i]["CFDIID"].ToString();
                     cfdi.CfdiFolioFiscal = dt.Rows[i]["CFDIFOLIOFISCAL"].ToString();
                     cfdi.CfdiSerie = dt.Rows[i]["CFDISERIE"].ToString();
+                    cfdi.CfdiFolio = dt.Rows[i]["CFDIFOLIO"].ToString() ;
+                    cfdi.CfdiTipo = dt.Rows[i]["CFDITIPO"].ToString();
                     cfdi.CfdiRSocEmisor = dt.Rows[i]["CFDIRSOCEMISOR"].ToString();
                     cfdi.CfdiRfcEmisor = dt.Rows[i]["CFDIRFCEMISOR"].ToString();
                     cfdi.CfdiRSocReceptor = dt.Rows[i]["CFDIRSOCRECEPTOR"].ToString();
@@ -85,7 +87,7 @@ namespace MRGFE.Controllers
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 2);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 3);
             da.SelectCommand.Parameters.AddWithValue("@CFDIID", SqlDbType.VarChar).Value = id;
 
             DataTable dt = new DataTable();
@@ -96,6 +98,8 @@ namespace MRGFE.Controllers
                 cfdi.CfdiId = dt.Rows[0]["CFDIID"].ToString();
                 cfdi.CfdiFolioFiscal = dt.Rows[0]["CFDIFOLIOFISCAL"].ToString();
                 cfdi.CfdiSerie = dt.Rows[0]["CFDISERIE"].ToString();
+                cfdi.CfdiFolio = dt.Rows[0]["CFDIFOLIO"].ToString();
+                cfdi.CfdiTipo = dt.Rows[0]["CFDITIPO"].ToString();
                 cfdi.CfdiRSocEmisor = dt.Rows[0]["CFDIRSOCEMISOR"].ToString();
                 cfdi.CfdiRfcEmisor = dt.Rows[0]["CFDIRFCEMISOR"].ToString();
                 cfdi.CfdiRSocReceptor = dt.Rows[0]["CFDIRSOCRECEPTOR"].ToString();
@@ -131,7 +135,7 @@ namespace MRGFE.Controllers
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 3);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 4);
             da.SelectCommand.Parameters.AddWithValue("@CFDIFOLIOFISCAL", SqlDbType.VarChar).Value = foliofiscal;
 
             DataTable dt = new DataTable();
@@ -142,6 +146,8 @@ namespace MRGFE.Controllers
                 cfdi.CfdiId = dt.Rows[0]["CFDIID"].ToString();
                 cfdi.CfdiFolioFiscal = dt.Rows[0]["CFDIFOLIOFISCAL"].ToString();
                 cfdi.CfdiSerie = dt.Rows[0]["CFDISERIE"].ToString();
+                cfdi.CfdiFolio = dt.Rows[0]["CFDIFOLIO"].ToString();
+                cfdi.CfdiTipo = dt.Rows[0]["CFDITIPO"].ToString();
                 cfdi.CfdiRSocEmisor = dt.Rows[0]["CFDIRSOCEMISOR"].ToString();
                 cfdi.CfdiRfcEmisor = dt.Rows[0]["CFDIRFCEMISOR"].ToString();
                 cfdi.CfdiRSocReceptor = dt.Rows[0]["CFDIRSOCRECEPTOR"].ToString();
@@ -181,7 +187,7 @@ namespace MRGFE.Controllers
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 4);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 5);
             da.SelectCommand.Parameters.AddWithValue("@CFDIRFCEMISOR", SqlDbType.VarChar).Value = rfcemisor;
             da.SelectCommand.Parameters.AddWithValue("@CFDIRFCRECEPTOR", SqlDbType.VarChar).Value = rfcreceptor;
             da.SelectCommand.Parameters.AddWithValue("@CFDIFECHAINICIO", SqlDbType.DateTime).Value = fechainicio;
@@ -198,6 +204,8 @@ namespace MRGFE.Controllers
                     cfdi.CfdiId = dt.Rows[i]["CFDIID"].ToString();
                     cfdi.CfdiFolioFiscal = dt.Rows[i]["CFDIFOLIOFISCAL"].ToString();
                     cfdi.CfdiSerie = dt.Rows[i]["CFDISERIE"].ToString();
+                    cfdi.CfdiFolio = dt.Rows[i]["CFDIFOLIO"].ToString();
+                    cfdi.CfdiTipo = dt.Rows[i]["CFDITIPO"].ToString();
                     cfdi.CfdiRSocEmisor = dt.Rows[i]["CFDIRSOCEMISOR"].ToString();
                     cfdi.CfdiRfcEmisor = dt.Rows[i]["CFDIRFCEMISOR"].ToString();
                     cfdi.CfdiRSocReceptor = dt.Rows[i]["CFDIRSOCRECEPTOR"].ToString();
@@ -264,6 +272,8 @@ namespace MRGFE.Controllers
                     cmd.Parameters.AddWithValue("@CFDIID", SqlDbType.VarChar).Value = cfdi.CfdiId;
                     cmd.Parameters.AddWithValue("@CFDIFOLIOFISCAL", SqlDbType.VarChar).Value = cfdi.CfdiFolioFiscal;
                     cmd.Parameters.AddWithValue("@CFDISERIE", SqlDbType.VarChar).Value = cfdi.CfdiSerie;
+                    cmd.Parameters.AddWithValue("@CFDIFOLIO", SqlDbType.VarChar).Value = cfdi.CfdiFolio;
+                    cmd.Parameters.AddWithValue("@CFDITIPO", SqlDbType.VarChar).Value = cfdi.CfdiTipo;
                     cmd.Parameters.AddWithValue("@CFDIRSOCEMISOR", SqlDbType.VarChar).Value = cfdi.CfdiRSocEmisor;
                     cmd.Parameters.AddWithValue("@CFDIRFCEMISOR", SqlDbType.VarChar).Value = cfdi.CfdiRfcEmisor;
                     cmd.Parameters.AddWithValue("@CFDIRSOCRECEPTOR", SqlDbType.VarChar).Value = cfdi.CfdiRSocReceptor;

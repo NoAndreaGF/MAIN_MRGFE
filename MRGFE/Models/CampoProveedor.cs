@@ -50,6 +50,7 @@ namespace MRGFE.Models
         /// Atributo Arreglo de un Campo Proveedor
         /// </summary>
         [Required]
+        [Range(0, 1, ErrorMessage = "El campo debe ser un bit")]
         public byte CamposPrArreglo1 { get; set; }
 
         /// <summary>
@@ -63,6 +64,7 @@ namespace MRGFE.Models
         /// Atributo Obligatorio de un Campo Proveedor
         /// </summary>
         [Required]
+        [Range(0, 1, ErrorMessage = "El campo debe ser un bit")]
         public byte CamposPrObliga1 { get; set; }
     }
 }

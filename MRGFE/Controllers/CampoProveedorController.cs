@@ -27,23 +27,30 @@ namespace MRGFE.Controllers
         [HttpPost, Route("api/campoproveedor")]
         public dynamic PostCampoProveedor([FromBody] CampoProveedor campoProveedor)
         {
-            SqlCommand command = new SqlCommand("procMRGFECamposProveedor", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@accion", 1);
-            command.Parameters.AddWithValue("@CAMPOSPRID", SqlDbType.VarChar).Value = campoProveedor.CamposPrId;
-            command.Parameters.AddWithValue("@CAMPOSPRPROVEDOR", SqlDbType.VarChar).Value = campoProveedor.CamposPrProveedor;
-            command.Parameters.AddWithValue("@CAMPOSPRCAMPO", SqlDbType.VarChar).Value = campoProveedor.CamposPrCampo;
-            command.Parameters.AddWithValue("@CAMPOSPRETIQUETA", SqlDbType.VarChar).Value = campoProveedor.CamposPrEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSPRTIPODATO", SqlDbType.VarChar).Value = campoProveedor.CamposPrTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSPRARREGLO1", SqlDbType.Bit).Value = campoProveedor.CamposPrArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSPRVERSION", SqlDbType.VarChar).Value = campoProveedor.CamposPrVersion;
-            command.Parameters.AddWithValue("@CAMPOSPROBLIGA1", SqlDbType.Bit).Value = campoProveedor.CamposPrObliga1;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFECamposProveedor", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@accion", 1);
+                command.Parameters.AddWithValue("@CAMPOSPRID", SqlDbType.VarChar).Value = campoProveedor.CamposPrId;
+                command.Parameters.AddWithValue("@CAMPOSPRPROVEDOR", SqlDbType.VarChar).Value = campoProveedor.CamposPrProveedor;
+                command.Parameters.AddWithValue("@CAMPOSPRCAMPO", SqlDbType.VarChar).Value = campoProveedor.CamposPrCampo;
+                command.Parameters.AddWithValue("@CAMPOSPRETIQUETA", SqlDbType.VarChar).Value = campoProveedor.CamposPrEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSPRTIPODATO", SqlDbType.VarChar).Value = campoProveedor.CamposPrTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSPRARREGLO1", SqlDbType.Bit).Value = campoProveedor.CamposPrArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSPRVERSION", SqlDbType.VarChar).Value = campoProveedor.CamposPrVersion;
+                command.Parameters.AddWithValue("@CAMPOSPROBLIGA1", SqlDbType.Bit).Value = campoProveedor.CamposPrObliga1;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
 
-            return campoProveedor;
+            return Request.CreateResponse(HttpStatusCode.Created, campoProveedor);
         }
 
         /// <summary>
@@ -54,23 +61,30 @@ namespace MRGFE.Controllers
         [HttpPut, Route("api/campoproveedor")]
         public dynamic PutCampoProveedor([FromBody] CampoProveedor campoProveedor)
         {
-            SqlCommand command = new SqlCommand("procMRGFECamposProveedor", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@accion", 2);
-            command.Parameters.AddWithValue("@CAMPOSPRID", SqlDbType.VarChar).Value = campoProveedor.CamposPrId;
-            command.Parameters.AddWithValue("@CAMPOSPRPROVEDOR", SqlDbType.VarChar).Value = campoProveedor.CamposPrProveedor;
-            command.Parameters.AddWithValue("@CAMPOSPRCAMPO", SqlDbType.VarChar).Value = campoProveedor.CamposPrCampo;
-            command.Parameters.AddWithValue("@CAMPOSPRETIQUETA", SqlDbType.VarChar).Value = campoProveedor.CamposPrEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSPRTIPODATO", SqlDbType.VarChar).Value = campoProveedor.CamposPrTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSPRARREGLO1", SqlDbType.Bit).Value = campoProveedor.CamposPrArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSPRVERSION", SqlDbType.VarChar).Value = campoProveedor.CamposPrVersion;
-            command.Parameters.AddWithValue("@CAMPOSPROBLIGA1", SqlDbType.Bit).Value = campoProveedor.CamposPrObliga1;
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFECamposProveedor", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@accion", 2);
+                command.Parameters.AddWithValue("@CAMPOSPRID", SqlDbType.VarChar).Value = campoProveedor.CamposPrId;
+                command.Parameters.AddWithValue("@CAMPOSPRPROVEDOR", SqlDbType.VarChar).Value = campoProveedor.CamposPrProveedor;
+                command.Parameters.AddWithValue("@CAMPOSPRCAMPO", SqlDbType.VarChar).Value = campoProveedor.CamposPrCampo;
+                command.Parameters.AddWithValue("@CAMPOSPRETIQUETA", SqlDbType.VarChar).Value = campoProveedor.CamposPrEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSPRTIPODATO", SqlDbType.VarChar).Value = campoProveedor.CamposPrTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSPRARREGLO1", SqlDbType.Bit).Value = campoProveedor.CamposPrArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSPRVERSION", SqlDbType.VarChar).Value = campoProveedor.CamposPrVersion;
+                command.Parameters.AddWithValue("@CAMPOSPROBLIGA1", SqlDbType.Bit).Value = campoProveedor.CamposPrObliga1;
 
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
 
-            return campoProveedor;
+            return Request.CreateResponse(HttpStatusCode.OK, campoProveedor);
         }
 
         /// <summary>
@@ -95,7 +109,7 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <returns>Lista de los Campos de Proveedor</returns>
         [HttpGet, Route("api/campoproveedor")]
-        public List<CampoProveedor> GetCamposProveedor()
+        public HttpResponseMessage GetCamposProveedor()
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECamposProveedor", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -123,12 +137,10 @@ namespace MRGFE.Controllers
             }
             if (lstCampoProveedor.Count > 0)
             {
-                return lstCampoProveedor;
+                return Request.CreateResponse(HttpStatusCode.OK, lstCampoProveedor);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No hay registros en este momento.");
+
         }
 
         /// <summary>
@@ -160,12 +172,9 @@ namespace MRGFE.Controllers
             }
             if (campoProveedor != null)
             {
-                return campoProveedor;
+                return Request.CreateResponse(HttpStatusCode.OK, campoProveedor);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No hay registros en este momento.");
         }
     }
 }

@@ -25,7 +25,7 @@ namespace MRGFE.Controllers
         /// <param name="emisor">Json representativo de un Emisor a registrar</param>
         /// <returns>Datos del Emisor registrado</returns>
         [HttpPost, Route("api/emisor")]
-        public dynamic PostEmisor([FromBody] Emisor emisor)
+        public HttpResponseMessage PostEmisor([FromBody] Emisor emisor)
         {
             if (ModelState.IsValid)
             {
@@ -155,6 +155,7 @@ namespace MRGFE.Controllers
                     lstEmisor.Add(emisor);
                 }
             }
+            if (lstEmisor.Count > 0)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, lstEmisor);
             }
