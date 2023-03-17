@@ -481,44 +481,6 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="T:MRGFE.Controllers.III_CampoProveedorController">
-            <summary>
-            Controlador para Campo Proveedor
-            </summary>
-        </member>
-        <member name="M:MRGFE.Controllers.III_CampoProveedorController.PostCampoProveedor(MRGFE.Models.CampoProveedor)">
-            <summary>
-            Esta función recibe los datos del Campo Proveedor y los guarda
-            </summary>
-            <param name="campoProveedor">Json representativo de un Campo Proveedor a registrar</param>
-            <returns>Datos del Campo Proveedor registrado</returns>
-        </member>
-        <member name="M:MRGFE.Controllers.III_CampoProveedorController.PutCampoProveedor(MRGFE.Models.CampoProveedor)">
-            <summary>
-            Esta función recibe los datos de Campo Proveedor para actualizar el objeto según su Id
-            </summary>
-            <param name="campoProveedor">Json representativo de un Campo Proveedor a actualizar</param>
-            <returns>Datos del Camp Proveedor actualizado</returns>
-        </member>
-        <member name="M:MRGFE.Controllers.III_CampoProveedorController.DeleteCampoProveedor(System.String)">
-            <summary>
-            Esta función elimina el Campo Proveedor correspondiente al Id
-            </summary>
-            <param name="id">Id del Campo Proveedor a eliminar</param>
-        </member>
-        <member name="M:MRGFE.Controllers.III_CampoProveedorController.GetCamposProveedor">
-            <summary>
-            Esta función obtiene los Campos de Proveedor
-            </summary>
-            <returns>Lista de los Campos de Proveedor</returns>
-        </member>
-        <member name="M:MRGFE.Controllers.III_CampoProveedorController.GetPorId(System.String)">
-            <summary>
-            Esta función obtiene un Campo de Proveedor por Id
-            </summary>
-            <param name="id">Id del Campo de Proveedor a recuperar</param>
-            <returns>Datos del Campo Proveedor recuperado</returns>
-        </member>
         <member name="T:MRGFE.Controllers.IV_CampoMirageController">
             <summary>
             Controlador para Campo Mirage
@@ -557,23 +519,48 @@
             <param name="id">Id del Campo de Mirage a recuperar</param>
             <returns>Datos del Campo Mirage recuperado</returns>
         </member>
+        <member name="T:MRGFE.Controllers.III_CampoProveedorController">
+            <summary>
+            Controlador para Campo Proveedor
+            </summary>
+        </member>
+        <member name="M:MRGFE.Controllers.III_CampoProveedorController.PostCampoProveedor(MRGFE.Models.CampoProveedor)">
+            <summary>
+            Esta función recibe los datos del Campo Proveedor y los guarda
+            </summary>
+            <param name="campoProveedor">Json representativo de un Campo Proveedor a registrar</param>
+            <returns>Datos del Campo Proveedor registrado</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.III_CampoProveedorController.PutCampoProveedor(MRGFE.Models.CampoProveedor)">
+            <summary>
+            Esta función recibe los datos de Campo Proveedor para actualizar el objeto según su Id
+            </summary>
+            <param name="campoProveedor">Json representativo de un Campo Proveedor a actualizar</param>
+            <returns>Datos del Camp Proveedor actualizado</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.III_CampoProveedorController.DeleteCampoProveedor(System.String)">
+            <summary>
+            Esta función elimina el Campo Proveedor correspondiente al Id
+            </summary>
+            <param name="id">Id del Campo Proveedor a eliminar</param>
+        </member>
+        <member name="M:MRGFE.Controllers.III_CampoProveedorController.GetCamposProveedor">
+            <summary>
+            Esta función obtiene los Campos de Proveedor
+            </summary>
+            <returns>Lista de los Campos de Proveedor</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.III_CampoProveedorController.GetPorId(System.String)">
+            <summary>
+            Esta función obtiene un Campo de Proveedor por Id
+            </summary>
+            <param name="id">Id del Campo de Proveedor a recuperar</param>
+            <returns>Datos del Campo Proveedor recuperado</returns>
+        </member>
         <member name="T:MRGFE.Controllers.II_EmisorController">
             <summary>
             Controlador para Emisor
             </summary>
-        </member>
-        <member name="M:MRGFE.Controllers.II_EmisorController.GetEmisores">
-            <summary>
-            Esta función obtiene los Emisores
-            </summary>
-            <returns>Lista de los Emisores</returns>
-        </member>
-        <member name="M:MRGFE.Controllers.II_EmisorController.GetPorRfc(System.String)">
-            <summary>
-            Esta función obtiene un Emisor por Rfc
-            </summary>
-            <param name="rfc">RFC del Emisor a recuperar</param>
-            <returns>Datos del Emisor recuperado</returns>
         </member>
         <member name="M:MRGFE.Controllers.II_EmisorController.PostEmisor(MRGFE.Models.Emisor)">
             <summary>
@@ -594,6 +581,19 @@
             Esta función elimina el Emisor correspondinete al RFC
             </summary>
             <param name="rfc">RFC del Emisor a eliminar</param>
+        </member>
+        <member name="M:MRGFE.Controllers.II_EmisorController.GetEmisores">
+            <summary>
+            Esta función obtiene los Emisores
+            </summary>
+            <returns>Lista de los Emisores</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.II_EmisorController.GetPorRfc(System.String)">
+            <summary>
+            Esta función obtiene un Emisor por Rfc
+            </summary>
+            <param name="rfc">RFC del Emisor a recuperar</param>
+            <returns>Datos del Emisor recuperado</returns>
         </member>
         <member name="T:MRGFE.Controllers.I_CfdiController">
             <summary>
@@ -630,12 +630,52 @@
             <param name="fechafin">Fecha a tomar de fin para la creación del Cfdi</param>
             <returns></returns>
         </member>
-        <member name="M:MRGFE.Controllers.I_CfdiController.PostCfdi(System.String)">
+        <member name="M:MRGFE.Controllers.I_CfdiController.PostCfdi(Facturama.Models.Request.CfdiMulti)">
             <summary>
             Esta función recibe el Cfdi y lo guarda.
             </summary>
             <param name="factura">Json representativo de un Cfdi a registrar</param>
             <returns>Datos del Cfdi registrado</returns>
+        </member>
+        <member name="T:MRGFE.Models.CampoMirage">
+            <summary>
+            Modelo para Campo Mirage de acuerdo a la Base de Datos
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.CampoMirage.CamposMiId">
+            <summary>
+            Atributo Id de un Campo Mirage 
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.CampoMirage.CamposMiCampo">
+            <summary>
+            Atributo Campo de un Campo Mirage
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.CampoMirage.CamposMiEtiqueta">
+            <summary>
+            Atributo Etiqueta de un Campo Mirage
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.CampoMirage.CamposMiTipoDato">
+            <summary>
+            Atributo Tipo de Dato de un Campo Mirage
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.CampoMirage.CamposMiArreglo1">
+            <summary>
+            Atributo Arreglo de un Campo Mirage
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.CampoMirage.CamposMiVersion">
+            <summary>
+            Atributo Version de un Campo Mirage
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.CampoMirage.CamposMiObliga1">
+            <summary>
+            Atributo Obligatorio de un Campo Mirage
+            </summary>
         </member>
         <member name="T:MRGFE.Models.CampoProveedor">
             <summary>
@@ -680,46 +720,6 @@
         <member name="P:MRGFE.Models.CampoProveedor.CamposPrObliga1">
             <summary>
             Atributo Obligatorio de un Campo Proveedor
-            </summary>
-        </member>
-        <member name="T:MRGFE.Models.CampoMirage">
-            <summary>
-            Modelo para Campo Mirage de acuerdo a la Base de Datos
-            </summary>
-        </member>
-        <member name="P:MRGFE.Models.CampoMirage.CamposMiId">
-            <summary>
-            Atributo Id de un Campo Mirage 
-            </summary>
-        </member>
-        <member name="P:MRGFE.Models.CampoMirage.CamposMiCampo">
-            <summary>
-            Atributo Campo de un Campo Mirage
-            </summary>
-        </member>
-        <member name="P:MRGFE.Models.CampoMirage.CamposMiEtiqueta">
-            <summary>
-            Atributo Etiqueta de un Campo Mirage
-            </summary>
-        </member>
-        <member name="P:MRGFE.Models.CampoMirage.CamposMiTipoDato">
-            <summary>
-            Atributo Tipo de Dato de un Campo Mirage
-            </summary>
-        </member>
-        <member name="P:MRGFE.Models.CampoMirage.CamposMiArreglo1">
-            <summary>
-            Atributo Arreglo de un Campo Mirage
-            </summary>
-        </member>
-        <member name="P:MRGFE.Models.CampoMirage.CamposMiVersion">
-            <summary>
-            Atributo Version de un Campo Mirage
-            </summary>
-        </member>
-        <member name="P:MRGFE.Models.CampoMirage.CamposMiObliga1">
-            <summary>
-            Atributo Obligatorio de un Campo Mirage
             </summary>
         </member>
         <member name="T:MRGFE.Models.CFDI">
