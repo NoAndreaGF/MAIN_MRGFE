@@ -600,6 +600,18 @@
             Controlador para CFDI
             </summary>
         </member>
+        <member name="M:MRGFE.Controllers.I_CfdiController.GetReceptores">
+            <summary>
+            Esta función obtiene todos los Receptores
+            </summary>
+            <returns>Lista de Receptores</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.I_CfdiController.GetEmisores">
+            <summary>
+            Esta función obtiene todos los Emisores
+            </summary>
+            <returns>Lista de Emisores</returns>
+        </member>
         <member name="M:MRGFE.Controllers.I_CfdiController.GetFacturas">
             <summary>
             Esta función obtiene todos los Cfdis

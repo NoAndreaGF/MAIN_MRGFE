@@ -25,6 +25,66 @@ namespace MRGFE.Controllers
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
 
         /// <summary>
+        /// Esta función obtiene todos los Receptores
+        /// </summary>
+        /// <returns>Lista de Receptores</returns>
+        [HttpGet, Route("api/cfdi/receptores")]
+        public HttpResponseMessage GetReceptores()
+        {
+            SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
+            da.SelectCommand.CommandType = CommandType.StoredProcedure;
+            da.SelectCommand.Parameters.AddWithValue("@accion", 1);
+
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            List<String> lstReceptores = new List<String>();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string CfdiRfcReceptor = dt.Rows[i]["CFDIRFCRECEPTOR"].ToString();
+
+                    lstReceptores.Add(CfdiRfcReceptor);
+                }
+            }
+            if (lstReceptores.Count > 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, lstReceptores);
+            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontraron Receptores registrados.");
+        }
+
+        /// <summary>
+        /// Esta función obtiene todos los Emisores
+        /// </summary>
+        /// <returns>Lista de Emisores</returns>
+        [HttpGet, Route("api/cfdi/emisores")]
+        public HttpResponseMessage GetEmisores()
+        {
+            SqlDataAdapter da = new SqlDataAdapter("procMRGFEEmisor", conn);
+            da.SelectCommand.CommandType = CommandType.StoredProcedure;
+            da.SelectCommand.Parameters.AddWithValue("@accion", 4);
+
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            List<String> lstEmisores = new List<String>();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string EmisorRfc = dt.Rows[i]["EMISORRFC"].ToString();
+
+                    lstEmisores.Add(EmisorRfc);
+                }
+            }
+            if (lstEmisores.Count > 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, lstEmisores);
+            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontraron Emisores registrados.");
+        }
+
+        /// <summary>
         /// Esta función obtiene todos los Cfdis
         /// </summary>
         /// <returns>Lista de Cfdis</returns>
