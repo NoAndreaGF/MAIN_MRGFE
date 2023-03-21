@@ -14,20 +14,107 @@ namespace MRGFE.Controllers
     /// <summary>
     /// Controlador para Campo Mirage
     /// </summary>
-    public class CampoMirageController : ApiController
+    public class IV_CampoMirageController : ApiController
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
+
+        /// <summary>
+        /// Esta función recibe los datos del Campo Mirage y los guarda
+        /// </summary>
+        /// <param name="campoMirage">Json representativo de un Campo Mirage a registrar</param>
+        /// <returns>Datos del Campo Mirage registrado</returns>
+        [HttpPost, Route("api/campomirage")]
+        public dynamic PostCampoMirage([FromBody] CampoMirage campoMirage)
+        {
+            if (ModelState.IsValid)
+            {
+                SqlCommand command = new SqlCommand("procMRGFECamposMirage", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@accion", 1);
+                command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
+                command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
+                command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
+                command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
+
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            return Request.CreateResponse(HttpStatusCode.Created, campoMirage);
+        }
+
+        /// <summary>
+        /// Esta función recibe los datos de Campo Mirage para actualizar el objeto según su Id
+        /// </summary>
+        /// <param name="campoMirage">Json representativo de un Campo Mirage a actualizar</param>
+        /// <returns>Datos del Camp Mirage actualizado</returns>
+        [HttpPut, Route("api/campomirage")]
+        public dynamic PutCampoMirage([FromBody] CampoMirage campoMirage)
+        {
+            if (ModelState.IsValid)
+            {
+
+                SqlCommand command = new SqlCommand("procMRGFECamposMirage", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@accion", 2);
+                command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
+                command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
+                command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
+                command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
+                command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
+                command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
+                command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
+
+                conn.Open();
+                command.ExecuteNonQuery();
+                conn.Close();
+
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, campoMirage);
+        }
+
+        /// <summary>
+        /// Esta función elimina el Campo Mirage correspondiente al Id
+        /// </summary>
+        /// <param name="id">Id del Campo Mirage a eliminar</param>
+        [HttpDelete, Route("api/campomirage/{id}")]
+        public HttpResponseMessage DeleteCampoMirage(string id)
+        {
+            SqlCommand command = new SqlCommand("procMRGFECamposMirage", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@accion", 3);
+            command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = id;
+
+            conn.Open();
+            command.ExecuteNonQuery();
+            conn.Close();
+            return Request.CreateResponse(HttpStatusCode.OK, "Registro eliminado");
+
+        }
 
         /// <summary>
         /// Esta función obtiene los Campos de Mirage
         /// </summary>
         /// <returns>Lista de los Campos de Mirage</returns>
         [HttpGet, Route("api/campomirage")]
-        public List<CampoMirage> GetCamposMirage()
+        public HttpResponseMessage GetCamposMirage()
         {
-            SqlDataAdapter da = new SqlDataAdapter("procMRGFECamposMirageRecuperar", conn);
+            SqlDataAdapter da = new SqlDataAdapter("procMRGFECamposMirage", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 1);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 4);
 
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -50,12 +137,10 @@ namespace MRGFE.Controllers
             }
             if (lstCampoMirage.Count > 0)
             {
-                return lstCampoMirage;
+                return Request.CreateResponse(HttpStatusCode.OK, lstCampoMirage);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No hay registros en este momento.");
+
         }
 
         /// <summary>
@@ -66,9 +151,9 @@ namespace MRGFE.Controllers
         [HttpGet, Route("api/campomirage/{id}")]
         public dynamic GetPorId(string id)
         {
-            SqlDataAdapter da = new SqlDataAdapter("procMRGFECamposMirageRecuperar", conn);
+            SqlDataAdapter da = new SqlDataAdapter("procMRGFECamposMirage", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 2);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 5);
             da.SelectCommand.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = id;
 
             DataTable dt = new DataTable();
@@ -86,78 +171,9 @@ namespace MRGFE.Controllers
             }
             if (campoMirage != null)
             {
-                return campoMirage;
+                return Request.CreateResponse(HttpStatusCode.OK, campoMirage);
             }
-            else
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Esta función recibe los datos del Campo Mirage y los guarda
-        /// </summary>
-        /// <param name="campoMirage">Json representativo de un Campo Mirage a registrar</param>
-        /// <returns>Datos del Campo Mirage registrado</returns>
-        [HttpPost, Route("api/campomirage")]
-        public dynamic PostCampoMirage([FromBody] CampoMirage campoMirage)
-        {
-            SqlCommand command = new SqlCommand("procMRGFECamposMirageCrear", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
-            command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
-            command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
-            command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
-
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
-
-            return campoMirage;
-        }
-
-        /// <summary>
-        /// Esta función recibe los datos de Campo Mirage para actualizar el objeto según su Id
-        /// </summary>
-        /// <param name="campoMirage">Json representativo de un Campo Mirage a actualizar</param>
-        /// <returns>Datos del Camp Mirage actualizado</returns>
-        [HttpPut, Route("api/campomirage")]
-        public dynamic PutCampoMirage([FromBody] CampoMirage campoMirage)
-        {
-            SqlCommand command = new SqlCommand("procMRGFECamposMirageActualizar", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = campoMirage.CamposMiId;
-            command.Parameters.AddWithValue("@CAMPOSMICAMPO", SqlDbType.VarChar).Value = campoMirage.CamposMiCampo;
-            command.Parameters.AddWithValue("@CAMPOSMIETIQUETA", SqlDbType.VarChar).Value = campoMirage.CamposMiEtiqueta;
-            command.Parameters.AddWithValue("@CAMPOSMITIPODATO", SqlDbType.VarChar).Value = campoMirage.CamposMiTipoDato;
-            command.Parameters.AddWithValue("@CAMPOSMIARREGLO1", SqlDbType.Bit).Value = campoMirage.CamposMiArreglo1;
-            command.Parameters.AddWithValue("@CAMPOSMIVERSION", SqlDbType.VarChar).Value = campoMirage.CamposMiVersion;
-            command.Parameters.AddWithValue("@CAMPOSMIOBLIGA1", SqlDbType.Bit).Value = campoMirage.CamposMiObliga1;
-
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
-
-            return campoMirage;
-        }
-
-        /// <summary>
-        /// Esta función elimina el Campo Mirage correspondiente al Id
-        /// </summary>
-        /// <param name="id">Id del Campo Mirage a eliminar</param>
-        [HttpDelete, Route("api/campomirage/{id}")]
-        public void DeleteCampoMirage(string id)
-        {
-            SqlCommand command = new SqlCommand("procMRGFECamposMirageEliminar", conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@CAMPOSMIID", SqlDbType.VarChar).Value = id;
-
-            conn.Open();
-            command.ExecuteNonQuery();
-            conn.Close();
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No hay registros en este momento.");
         }
     }
 }

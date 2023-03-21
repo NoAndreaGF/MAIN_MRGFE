@@ -169,16 +169,16 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\CampoFacturamaController.cs" />
     <Compile Include="Controllers\CampoMirageController.cs" />
+    <Compile Include="Controllers\CampoProveedorController.cs" />
     <Compile Include="Controllers\EmisorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CfdiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CampoFacturama.cs" />
     <Compile Include="Models\CampoMirage.cs" />
+    <Compile Include="Models\CampoProveedor.cs" />
     <Compile Include="Models\CFDI.cs" />
     <Compile Include="Models\Emisor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CampoProveedor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

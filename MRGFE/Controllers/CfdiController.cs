@@ -19,7 +19,7 @@ namespace MRGFE.Controllers
     /// <summary>
     /// Controlador para CFDI
     /// </summary>
-    public class CfdiController : ApiController
+    public class I_CfdiController : ApiController
     {
         FacturamaApiMultiemisor facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
@@ -29,11 +29,11 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <returns>Lista de Cfdis</returns>
         [HttpGet, Route("api/cfdi")]
-        public List<CFDI> GetFacturas()
+        public HttpResponseMessage GetFacturas()
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 1);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 2);
 
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -46,6 +46,8 @@ namespace MRGFE.Controllers
                     cfdi.CfdiId = dt.Rows[i]["CFDIID"].ToString();
                     cfdi.CfdiFolioFiscal = dt.Rows[i]["CFDIFOLIOFISCAL"].ToString();
                     cfdi.CfdiSerie = dt.Rows[i]["CFDISERIE"].ToString();
+                    cfdi.CfdiFolio = dt.Rows[i]["CFDIFOLIO"].ToString() ;
+                    cfdi.CfdiTipo = dt.Rows[i]["CFDITIPO"].ToString();
                     cfdi.CfdiRSocEmisor = dt.Rows[i]["CFDIRSOCEMISOR"].ToString();
                     cfdi.CfdiRfcEmisor = dt.Rows[i]["CFDIRFCEMISOR"].ToString();
                     cfdi.CfdiRSocReceptor = dt.Rows[i]["CFDIRSOCRECEPTOR"].ToString();
@@ -69,12 +71,9 @@ namespace MRGFE.Controllers
             }
             if (lstCfdi.Count > 0)
             {
-                return lstCfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, lstCfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontraron CFDIs registrados.");
         }
 
         /// <summary>
@@ -83,11 +82,11 @@ namespace MRGFE.Controllers
         /// <param name="id">Id del Cfdi</param>
         /// <returns>Cfdi que coincide con el Id</returns>
         [HttpGet, Route("api/cfdi/{id}")]
-        public dynamic GetPorId(string id)
+        public HttpResponseMessage GetPorId(string id)
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 2);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 3);
             da.SelectCommand.Parameters.AddWithValue("@CFDIID", SqlDbType.VarChar).Value = id;
 
             DataTable dt = new DataTable();
@@ -98,6 +97,8 @@ namespace MRGFE.Controllers
                 cfdi.CfdiId = dt.Rows[0]["CFDIID"].ToString();
                 cfdi.CfdiFolioFiscal = dt.Rows[0]["CFDIFOLIOFISCAL"].ToString();
                 cfdi.CfdiSerie = dt.Rows[0]["CFDISERIE"].ToString();
+                cfdi.CfdiFolio = dt.Rows[0]["CFDIFOLIO"].ToString();
+                cfdi.CfdiTipo = dt.Rows[0]["CFDITIPO"].ToString();
                 cfdi.CfdiRSocEmisor = dt.Rows[0]["CFDIRSOCEMISOR"].ToString();
                 cfdi.CfdiRfcEmisor = dt.Rows[0]["CFDIRFCEMISOR"].ToString();
                 cfdi.CfdiRSocReceptor = dt.Rows[0]["CFDIRSOCRECEPTOR"].ToString();
@@ -116,14 +117,11 @@ namespace MRGFE.Controllers
                 cfdi.CfdiFechaProcesadoPdf = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOPDF"]);
                 cfdi.CfdiFechaProcesadoXml = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOXML"]);
             }
-            if (cfdi != null)
+            if (cfdi.CfdiId != null)
             {
-                return cfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, cfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontro el CFDI con el ID especificado.");
         }
 
         /// <summary>
@@ -132,11 +130,11 @@ namespace MRGFE.Controllers
         /// <param name="foliofiscal">Folio fiscal del Cfdi</param>
         /// <returns>Cfdi que coincide con el folio fiscal</returns>
         [HttpGet, Route("api/cfdi/folio={foliofiscal}")]
-        public dynamic GetPorFolio(string foliofiscal)
+        public HttpResponseMessage GetPorFolio(string foliofiscal)
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 3);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 4);
             da.SelectCommand.Parameters.AddWithValue("@CFDIFOLIOFISCAL", SqlDbType.VarChar).Value = foliofiscal;
 
             DataTable dt = new DataTable();
@@ -147,6 +145,8 @@ namespace MRGFE.Controllers
                 cfdi.CfdiId = dt.Rows[0]["CFDIID"].ToString();
                 cfdi.CfdiFolioFiscal = dt.Rows[0]["CFDIFOLIOFISCAL"].ToString();
                 cfdi.CfdiSerie = dt.Rows[0]["CFDISERIE"].ToString();
+                cfdi.CfdiFolio = dt.Rows[0]["CFDIFOLIO"].ToString();
+                cfdi.CfdiTipo = dt.Rows[0]["CFDITIPO"].ToString();
                 cfdi.CfdiRSocEmisor = dt.Rows[0]["CFDIRSOCEMISOR"].ToString();
                 cfdi.CfdiRfcEmisor = dt.Rows[0]["CFDIRFCEMISOR"].ToString();
                 cfdi.CfdiRSocReceptor = dt.Rows[0]["CFDIRSOCRECEPTOR"].ToString();
@@ -165,14 +165,11 @@ namespace MRGFE.Controllers
                 cfdi.CfdiFechaProcesadoPdf = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOPDF"]);
                 cfdi.CfdiFechaProcesadoXml = Convert.ToDateTime(dt.Rows[0]["CFDIFECHAPROCESADOXML"]);
             }
-            if (cfdi != null)
+            if (cfdi.CfdiId != null)
             {
-                return cfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, cfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontro el CFDI con el folio especificado.");
         }
 
         /// <summary>
@@ -184,12 +181,12 @@ namespace MRGFE.Controllers
         /// <param name="fechafin">Fecha a tomar de fin para la creación del Cfdi</param>
         /// <returns></returns>
         [HttpGet, Route("api/cfdi/filtrar")]
-        public List<CFDI> GetPorRfc([FromUri] string fechainicio, [FromUri] string fechafin, 
+        public HttpResponseMessage GetPorRfc([FromUri] string fechainicio, [FromUri] string fechafin,
             [FromUri] string rfcemisor = "", [FromUri] string rfcreceptor = "")
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.AddWithValue("@accion", 4);
+            da.SelectCommand.Parameters.AddWithValue("@accion", 5);
             da.SelectCommand.Parameters.AddWithValue("@CFDIRFCEMISOR", SqlDbType.VarChar).Value = rfcemisor;
             da.SelectCommand.Parameters.AddWithValue("@CFDIRFCRECEPTOR", SqlDbType.VarChar).Value = rfcreceptor;
             da.SelectCommand.Parameters.AddWithValue("@CFDIFECHAINICIO", SqlDbType.DateTime).Value = fechainicio;
@@ -206,6 +203,8 @@ namespace MRGFE.Controllers
                     cfdi.CfdiId = dt.Rows[i]["CFDIID"].ToString();
                     cfdi.CfdiFolioFiscal = dt.Rows[i]["CFDIFOLIOFISCAL"].ToString();
                     cfdi.CfdiSerie = dt.Rows[i]["CFDISERIE"].ToString();
+                    cfdi.CfdiFolio = dt.Rows[i]["CFDIFOLIO"].ToString();
+                    cfdi.CfdiTipo = dt.Rows[i]["CFDITIPO"].ToString();
                     cfdi.CfdiRSocEmisor = dt.Rows[i]["CFDIRSOCEMISOR"].ToString();
                     cfdi.CfdiRfcEmisor = dt.Rows[i]["CFDIRFCEMISOR"].ToString();
                     cfdi.CfdiRSocReceptor = dt.Rows[i]["CFDIRSOCRECEPTOR"].ToString();
@@ -229,12 +228,9 @@ namespace MRGFE.Controllers
             }
             if (lstCfdi.Count > 0)
             {
-                return lstCfdi;
+                return Request.CreateResponse(HttpStatusCode.OK, lstCfdi);
             }
-            else
-            {
-                return null;
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "No se encontraron CFDIs con los parametros especificados");
         }
 
         /// <summary>
@@ -242,51 +238,73 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <param name="factura">Json representativo de un Cfdi a registrar</param>
         /// <returns>Datos del Cfdi registrado</returns>
-        public dynamic Post([FromBody] CfdiMulti factura)
+        [HttpPost, Route("api/cfdi")]
+        public HttpResponseMessage PostCfdi([FromBody] CfdiMulti factura)
         {
             try
             {
-                var cfdi = facturama.Cfdis.Create(factura);
+                var acfdi = facturama.Cfdis.Create(factura);
 
-                var pdf = facturama.Cfdis.GetFile(cfdi.Id, CfdiLiteService.FileFormat.Pdf);
-                var xml = facturama.Cfdis.GetFile(cfdi.Id, CfdiLiteService.FileFormat.Xml);
+                var cfdi = new CFDI
+                {
+                    CfdiId = acfdi.Id,
+                    CfdiFolioFiscal = acfdi.Complement.TaxStamp.Uuid,
+                    CfdiSerie = acfdi.Serie,
+                    CfdiRSocEmisor = acfdi.Issuer.TaxName,
+                    CfdiRfcEmisor = acfdi.Issuer.Rfc,
+                    CfdiRSocReceptor = acfdi.Receiver.Name,
+                    CfdiRfcReceptor = acfdi.Receiver.Rfc,
+                    CfdiTotal = Decimal.ToDouble(acfdi.Total)
+                };
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "procMRGFECFDIsCrear";
-                cmd.Connection = conn;
+                this.Validate(cfdi);
+                if (ModelState.IsValid)
+                {
+                    var pdf = facturama.Cfdis.GetFile(cfdi.CfdiId, CfdiLiteService.FileFormat.Pdf);
+                    var xml = facturama.Cfdis.GetFile(cfdi.CfdiId, CfdiLiteService.FileFormat.Xml);
 
-                cmd.Parameters.AddWithValue("@CFDIID", SqlDbType.VarChar).Value = cfdi.Id;
-                cmd.Parameters.AddWithValue("@CFDIFOLIOFISCAL", SqlDbType.VarChar).Value = cfdi.Complement.TaxStamp.Uuid;
-                cmd.Parameters.AddWithValue("@CFDISERIE", SqlDbType.VarChar).Value = cfdi.Serie;
-                cmd.Parameters.AddWithValue("@CFDIRSOCEMISOR", SqlDbType.VarChar).Value = cfdi.Issuer.TaxName;
-                cmd.Parameters.AddWithValue("@CFDIRFCEMISOR", SqlDbType.VarChar).Value = cfdi.Issuer.Rfc;
-                cmd.Parameters.AddWithValue("@CFDIRSOCRECEPTOR", SqlDbType.VarChar).Value = cfdi.Receiver.Name;
-                cmd.Parameters.AddWithValue("@CFDIRFCRECEPTOR", SqlDbType.VarChar).Value = cfdi.Receiver.Rfc;
-                cmd.Parameters.AddWithValue("@CFDIFECHA", SqlDbType.DateTime).Value = cfdi.Date;
-                cmd.Parameters.AddWithValue("@CFDITOTAL", SqlDbType.Money).Value = cfdi.Total;
-                cmd.Parameters.AddWithValue("@CFDIEMAIL", SqlDbType.VarChar).Value = cfdi.Issuer.Email;
-                cmd.Parameters.AddWithValue("@CFDIESACTIVO", SqlDbType.VarChar).Value = cfdi.Status;
-                cmd.Parameters.AddWithValue("@CFDIEMAILENVIADO", SqlDbType.Bit).Value = cfdi.SendMail;
-                cmd.Parameters.AddWithValue("@CFDIPDF", SqlDbType.VarBinary).Value = Convert.FromBase64String(pdf.Content);
-                cmd.Parameters.AddWithValue("@CFDIXML", SqlDbType.VarBinary).Value = Convert.FromBase64String(xml.Content);
-                cmd.Parameters.AddWithValue("@CFDIPROCESADO1PDF", SqlDbType.Bit).Value = 1;
-                cmd.Parameters.AddWithValue("@CFDIPROCESADO1XML", SqlDbType.Bit).Value = 1;
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "procMRGFECFDIsCrear";
+                    cmd.Connection = conn;
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
-                return cfdi;
+                    cmd.Parameters.AddWithValue("@CFDIID", SqlDbType.VarChar).Value = cfdi.CfdiId;
+                    cmd.Parameters.AddWithValue("@CFDIFOLIOFISCAL", SqlDbType.VarChar).Value = cfdi.CfdiFolioFiscal;
+                    cmd.Parameters.AddWithValue("@CFDISERIE", SqlDbType.VarChar).Value = cfdi.CfdiSerie;
+                    cmd.Parameters.AddWithValue("@CFDIFOLIO", SqlDbType.VarChar).Value = cfdi.CfdiFolio;
+                    cmd.Parameters.AddWithValue("@CFDITIPO", SqlDbType.VarChar).Value = cfdi.CfdiTipo;
+                    cmd.Parameters.AddWithValue("@CFDIRSOCEMISOR", SqlDbType.VarChar).Value = cfdi.CfdiRSocEmisor;
+                    cmd.Parameters.AddWithValue("@CFDIRFCEMISOR", SqlDbType.VarChar).Value = cfdi.CfdiRfcEmisor;
+                    cmd.Parameters.AddWithValue("@CFDIRSOCRECEPTOR", SqlDbType.VarChar).Value = cfdi.CfdiRSocReceptor;
+                    cmd.Parameters.AddWithValue("@CFDIRFCRECEPTOR", SqlDbType.VarChar).Value = cfdi.CfdiRfcReceptor;
+                    cmd.Parameters.AddWithValue("@CFDIFECHA", SqlDbType.DateTime).Value = acfdi.Date;
+                    cmd.Parameters.AddWithValue("@CFDITOTAL", SqlDbType.Money).Value = cfdi.CfdiTotal;
+                    cmd.Parameters.AddWithValue("@CFDIEMAIL", SqlDbType.VarChar).Value = acfdi.Issuer.Email;
+                    cmd.Parameters.AddWithValue("@CFDIESACTIVO", SqlDbType.VarChar).Value = acfdi.Status;
+                    cmd.Parameters.AddWithValue("@CFDIEMAILENVIADO", SqlDbType.Bit).Value = acfdi.SendMail;
+                    cmd.Parameters.AddWithValue("@CFDIPDF", SqlDbType.VarBinary).Value = Convert.FromBase64String(pdf.Content);
+                    cmd.Parameters.AddWithValue("@CFDIXML", SqlDbType.VarBinary).Value = Convert.FromBase64String(xml.Content);
+                    cmd.Parameters.AddWithValue("@CFDIPROCESADO1PDF", SqlDbType.Bit).Value = 1;
+                    cmd.Parameters.AddWithValue("@CFDIPROCESADO1XML", SqlDbType.Bit).Value = 1;
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return Request.CreateResponse(HttpStatusCode.OK, acfdi);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
             }
             catch (FacturamaException ex)
             {
-                return ($"Error: ", ex.Message);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, $"Error: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return ($"Error inesperado: ", ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, $"Error inesperado: {ex.Message}");
             }
         }
-
     }
 }
