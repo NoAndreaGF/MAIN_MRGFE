@@ -66,7 +66,7 @@ namespace MRGFE.Controllers
         /// <param name="emisor">Json representativo de un Emisor a actualizar</param>
         /// <returns>Datos del Emisor actualizado</returns>
         [HttpPut, Route("api/emisor")]
-        public dynamic PutEmisor([FromBody] Emisor emisor)
+        public HttpResponseMessage PutEmisor([FromBody] Emisor emisor)
         {
             if (ModelState.IsValid)
             {

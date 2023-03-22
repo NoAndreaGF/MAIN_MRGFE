@@ -632,12 +632,14 @@
             <param name="foliofiscal">Folio fiscal del Cfdi</param>
             <returns>Cfdi que coincide con el folio fiscal</returns>
         </member>
-        <member name="M:MRGFE.Controllers.I_CfdiController.GetPorRfc(System.String,System.String,System.String,System.String)">
+        <member name="M:MRGFE.Controllers.I_CfdiController.GetPorRfc(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Esta función obtiene los Cfdi por filtros de fecha inicio y fecha final y/o RFC de emisor y/o RFC de receptor
             </summary>
             <param name="rfcemisor">RFC del Emisor del Cfdi</param>
             <param name="rfcreceptor">RFC del Receptor del Cfdi</param>
+            <param name="serie">Serie del Cfdi</param>
+            <param name="folio">Folio del Cfdi</param>
             <param name="fechainicio">Fecha a tomar de inicio para la creación del Cfdi</param>
             <param name="fechafin">Fecha a tomar de fin para la creación del Cfdi</param>
             <returns></returns>
@@ -648,6 +650,43 @@
             </summary>
             <param name="factura">Json representativo de un Cfdi a registrar</param>
             <returns>Datos del Cfdi registrado</returns>
+        </member>
+        <member name="T:MRGFE.Controllers.V_UsuarioController">
+            <summary>
+            Controlador para Usuario
+            </summary>
+        </member>
+        <member name="M:MRGFE.Controllers.V_UsuarioController.PostUsuario(MRGFE.Models.Usuario)">
+            <summary>
+            Esta función recibe los datos de Usuario y los guarda
+            </summary>
+            <param name="usuario">Json representativo de un Usuario a registrar</param>
+            <returns>Datos del Usuario registrado</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.V_UsuarioController.PutUsuario(MRGFE.Models.Usuario)">
+            <summary>
+            Esta función recibe los datos de Usuario para actualizar el objeto según su Correo
+            </summary>
+            <param name="usuario">Json representativo de un Usuario a actualizar</param>
+            <returns>Datos del Usuario actualizado</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.V_UsuarioController.DeleteUsuario(System.String)">
+            <summary>
+            Esta función elimina el Usuario correspondinete al Correo
+            </summary>
+            <param name="correo">Correo del Usuario a eliminar</param>
+        </member>
+        <member name="M:MRGFE.Controllers.V_UsuarioController.GetUsuarios">
+            <summary>
+            Esta función obtiene los Usuarios
+            </summary>
+            <returns>Lista de los Usuarios</returns>
+        </member>
+        <member name="M:MRGFE.Controllers.V_UsuarioController.Autenticar(System.String,System.String)">
+            <summary>
+            Esta función verifica al Usuario
+            </summary>
+            <returns>Datos del Usuario</returns>
         </member>
         <member name="T:MRGFE.Models.CampoMirage">
             <summary>
@@ -937,6 +976,36 @@
         <member name="P:MRGFE.Models.Emisor.EmisorFolioInic">
             <summary>
             Atributo de Folio Inicial del Emisor
+            </summary>
+        </member>
+        <member name="T:MRGFE.Models.Usuario">
+            <summary>
+            Modelo para Usuario de acuerdo a la Base de Datos
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.Usuario.UsuarioNombre">
+            <summary>
+            Atributo Nombre del Usuario
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.Usuario.UsuarioPassword">
+            <summary>
+            Atributo Password del Usuario
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.Usuario.UsuarioCorreo">
+            <summary>
+            Atributo Correo del Usuario
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.Usuario.UsuarioCorreoNvo">
+            <summary>
+            Atributo Correo Nuevo del Usuario
+            </summary>
+        </member>
+        <member name="P:MRGFE.Models.Usuario.UsuarioRol">
+            <summary>
+            Atributo Rol del Usuario
             </summary>
         </member>
     </members>
