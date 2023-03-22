@@ -237,12 +237,15 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <param name="rfcemisor">RFC del Emisor del Cfdi</param>
         /// <param name="rfcreceptor">RFC del Receptor del Cfdi</param>
+        /// <param name="serie">Serie del Cfdi</param>
+        /// <param name="folio">Folio del Cfdi</param>
         /// <param name="fechainicio">Fecha a tomar de inicio para la creación del Cfdi</param>
         /// <param name="fechafin">Fecha a tomar de fin para la creación del Cfdi</param>
         /// <returns></returns>
         [HttpGet, Route("api/cfdi/filtrar")]
         public HttpResponseMessage GetPorRfc([FromUri] string fechainicio, [FromUri] string fechafin,
-            [FromUri] string rfcemisor = "", [FromUri] string rfcreceptor = "")
+            [FromUri] string rfcemisor = "", [FromUri] string rfcreceptor = "",
+            [FromUri] string serie = "", [FromUri] string folio = "")
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFECFDIsRecuperacionCFDIs", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -251,6 +254,8 @@ namespace MRGFE.Controllers
             da.SelectCommand.Parameters.AddWithValue("@CFDIRFCRECEPTOR", SqlDbType.VarChar).Value = rfcreceptor;
             da.SelectCommand.Parameters.AddWithValue("@CFDIFECHAINICIO", SqlDbType.DateTime).Value = fechainicio;
             da.SelectCommand.Parameters.AddWithValue("@CFDIFECHAFIN", SqlDbType.DateTime).Value = fechafin;
+            da.SelectCommand.Parameters.AddWithValue("@CFDISERIE", SqlDbType.VarChar).Value = serie;
+            da.SelectCommand.Parameters.AddWithValue("@CFDIFOLIO", SqlDbType.VarChar).Value = folio;
 
             DataTable dt = new DataTable();
             da.Fill(dt);
