@@ -132,7 +132,7 @@ namespace MRGFE.Controllers
         /// </summary>
         /// <returns>Datos del Usuario</returns>
         [HttpGet, Route("autenticar")]
-        public HttpResponseMessage Autenticar([FromBody] string correo, [FromBody] string password)
+        public HttpResponseMessage Autenticar([FromUri] string correo, [FromUri] string password)
         {
             SqlDataAdapter da = new SqlDataAdapter("procMRGFEUsuario", conn);
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
